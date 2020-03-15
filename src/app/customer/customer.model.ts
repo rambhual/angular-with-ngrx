@@ -1,7 +1,7 @@
 export interface Customer {
-  _id: string;
+  id: string;
   name: string;
   phone: string;
   address: string;
-  isMemberShip: string;
+  isMemberShip: boolean;
 }
