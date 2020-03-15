@@ -11,7 +11,7 @@ import * as fromProduct from "./+state/product.reducer";
   imports: [
     CommonModule,
     ProductRoutingModule,
-    StoreModule.forFeature(fromProduct.productFeatureKey, fromProduct.reducer)
+    StoreModule.forFeature(fromProduct.products, fromProduct.reducer)
   ]
 })
 export class ProductModule {}
