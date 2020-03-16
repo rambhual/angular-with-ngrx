@@ -18,7 +18,7 @@ export class LoadPostsSuccess implements Action {
 
 export class LoadPostsFailure implements Action {
   readonly type = PostActionTypes.LOAD_POST_Failure;
-  constructor(public payload: { error: string }) {}
+  constructor(public payload: string) {}
 }
 
 export type PostActions = LoadPosts | LoadPostsSuccess | LoadPostsFailure;

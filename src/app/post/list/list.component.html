@@ -1,1 +1,32 @@
-<p>post list works!</p>
+<ng-container *ngIf="posts$ | async as post">
+  <nz-table #postTable [nzData]="post">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th style="width: 150px;">
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of postTable.data">
+        <td>{{ data.title }}</td>
+        <td>{{ data.body }}</td>
+        <td>
+          <a>Action </a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>
+
+<ng-container *ngIf="error$ | async as error">
+  <div
+    style="color:red;font-size: medium;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"
+  >
+    {{ error.message }}
+  </div>
+</ng-container>

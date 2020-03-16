@@ -1,6 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
+import { Observable } from "rxjs";
+
 import * as fromPostAction from "../state/post.actions";
+import * as fromPostReducer from "../state/post.reducer";
+import {
+  getPostsSelectors,
+  getPostsErrorSelector
+} from "../state/post.selectors";
+import { Post } from "../post.model";
 
 @Component({
   selector: "app-list",
@@ -9,10 +17,13 @@ import * as fromPostAction from "../state/post.actions";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit {
-  constructor(private readonly store: Store<any>) {}
+  posts$: Observable<Post[]>;
+  error$: Observable<string>;
+  constructor(private readonly store: Store<fromPostReducer.AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch({ type: fromPostAction.PostActionTypes.LOAD_POST });
-    this.store.subscribe(res => console.log(res));
+    this.store.dispatch(new fromPostAction.LoadPosts());
+    this.posts$ = this.store.pipe(select(getPostsSelectors));
+    this.error$ = this.store.pipe(select(getPostsErrorSelector));
   }
 }
